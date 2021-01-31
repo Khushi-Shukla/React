@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
+import Menu from './components/MenuComponent';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(   //rendering the view to the DOM It is rendered in index.html
   <React.StrictMode>
     <App />
+    <Menu />
   </React.StrictMode>,
   document.getElementById('root')
 );
