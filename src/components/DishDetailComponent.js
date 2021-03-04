@@ -10,7 +10,7 @@ class DishDetail extends Component{
                      <CardImg width="100%" src={dish.image} alt={dish.name} />
                      <CardBody>
                          <CardTitle>{dish.name}</CardTitle>
-                         <CardText>{dish.description}</CardText>
+                         <CardText>{dish.description} </CardText>
                      </CardBody>
                 </Card>
             );
@@ -32,7 +32,8 @@ class DishDetail extends Component{
                         <p>
                         {c.comment}
                        </p>
-                       <p> --{c.author} {c.date}</p>
+                       <p> --{c.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(c.date)))} </p>
+                        {/* {c.date}</p> */}
                    </li>
                  );
          });
