@@ -42,7 +42,7 @@ import { NavLink } from 'react-router-dom';
                            </NavItem>
                            <NavItem>
                                <NavLink className="nav-link" to="/menu">
-                                   <span className="fa fa-list fa-lg" >Menu</span>
+                                   <span className="fa fa-list fa-lg">Menu</span>
                                </NavLink>
                            </NavItem>
                            <NavItem>
