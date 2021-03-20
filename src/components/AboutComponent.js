@@ -15,10 +15,11 @@ function RenderLeader(props){
 
                 </Media>
                 <Media body>
-                
-                     <Media heading>{leader.name}</Media>
-                     <div className="col mb-5">{leader.description}</div>
-                     
+                     <div className="col mb-5">
+                         <Media heading>{leader.name}</Media>
+                         <Media subHeading>{leader.designation}</Media>
+                         <Media>{leader.description}</Media>
+                    </div> 
                 </Media>
              </Media>
     );
