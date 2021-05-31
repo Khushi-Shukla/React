@@ -25,7 +25,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         }
     }
 
-    function RenderComments({comments}){
+    function RenderComments({comments, addComment, dishId}) {
         if (comments == null) {
             return (<div></div>)
         }
@@ -53,15 +53,16 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                 <ul className='list-unstyled'>
                     {cmnts}
                 </ul>
-                <CommentForm />
+                {/* <CommentForm /> */}
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         )
     }
 
     const maxLength = (len) => (val) => !(val) || (val.length<=len);
     const minLength = (len) => (val) => (val) && (val.length>=len);
-    const  DishDetail = (props)=>{
-        const dish = props.dish
+    function  DishDetail ({dish, comments, addComment}){
+        // const dish = dish
 
         console.log(dish);
         
@@ -74,16 +75,21 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     <Breadcrumb>
                         {/* <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem> */}
                         <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                        <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
-                        <h3>{props.dish.name}</h3>
+                        <h3>{dish.name}</h3>
                         <hr />
                     </div>
                 </div>
                 <div className='row'>
-                    <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments}/>
+                    <RenderDish dish={dish} />
+                    <RenderComments comments={comments}
+                     addComment={addComment}
+                     dishId={dish.id}
+                     />
+                    
+                    {/* <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} /> */}
                 </div>
             </div>
         );
@@ -108,9 +114,9 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 
         handleSubmit(values){
             this.toggleModal();
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
             console.log("Current State is: "+ JSON.stringify(values))
             alert("Current State is: "+ JSON.stringify(values))
-            
         }
 
        render(){
@@ -138,14 +144,14 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 </Col> 
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="username" md={10}>Your Name</Label>
+                                <Label htmlFor="author" md={10}>Your Name</Label>
                                 <Col md={12}>
-                                    <Control.text model=".username" placeholder="Your Name" name="username" className="form-control" 
+                                    <Control.text model=".author" placeholder="Your Name" name="author" className="form-control" 
                                     validators={{
                                         minLength: minLength(3), maxLength: maxLength(15)
                                     }}
                                     />
-                                   <Errors className="text-danger" model=".username" show="touched"
+                                   <Errors className="text-danger" model=".author" show="touched"
                                    messages={{
                                     minLength: 'Must be greater than 2 characters',
                                     maxLength: 'Must be 15 characters or less',
