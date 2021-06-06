@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem,Col, Row, Modal, ModalHeader, Button, Label, ModalBody  } from "reactstrap";
 import { Link } from 'react-router-dom'
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { LoadingComponent } from './LoadingComponent'
 
  function RenderDish({dish}) {
 
@@ -61,14 +62,27 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 
     const maxLength = (len) => (val) => !(val) || (val.length<=len);
     const minLength = (len) => (val) => (val) && (val.length>=len);
-    function  DishDetail ({dish, comments, addComment}){
+    function  DishDetail ({dish, comments, addComment, isLoading, errMess}){
         // const dish = dish
-
-        console.log(dish);
-        
-        if (dish == null) {
-            return (<div></div>);
+        if(isLoading)
+        return(
+            <div className="container">
+                <div className="row">
+                    <LoadingComponent />
+                </div>
+            </div>
+        );
+        else if(errMess){
+            <div className="container">
+                <div className="row">
+                    <h4>{errMess}</h4>
+                </div>
+            </div>
         }
+        // console.log(dish);
+        
+       
+        else if(dish != null)
         return (
             <div className="container">
                 <div className="row">
@@ -92,7 +106,11 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     {/* <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} /> */}
                 </div>
             </div>
+          
         );
+        else{
+            return (<div></div>);
+        }
     }
 
     class  CommentForm extends Component{
@@ -134,7 +152,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             <Row className="form-group">
                                 <Label htmlFor="rating" md={10}>Rating</Label>
                                 <Col md={12}>
-                                    <Control.select model=".rating" value="1" name="rating" className="form-control">
+                                    <Control.select model=".rating" name="rating" className="form-control">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
