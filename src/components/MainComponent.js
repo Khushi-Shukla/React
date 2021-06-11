@@ -13,10 +13,10 @@ import { actions } from 'react-redux-form';
 
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => { dispatch(fetchDishes())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
+  fetchDishes: () => { dispatch(fetchDishes())},
   fetchLeaders: () => dispatch(fetchLeaders())
 });
 
@@ -48,9 +48,9 @@ class Main extends Component {
     const HomePage=()=>{
       return(
         <Home 
-        dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+        dishes={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
         dishesLoading={this.props.dishes.isLoading}
-        dishErrMess={this.props.dishes.errMess}
+        dishesErrMess={this.props.dishes.errMess}
         promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
         promoLoading={this.props.promotions.isLoading}
         promoErrMess={this.props.promotions.errMess}
