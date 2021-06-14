@@ -27,7 +27,7 @@ import { baseUrl } from '../shared/baseUrl';
         }
     }
 
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
         if (comments == null) {
             return (<div></div>)
         }
@@ -56,14 +56,14 @@ import { baseUrl } from '../shared/baseUrl';
                     {cmnts}
                 </ul>
                 {/* <CommentForm /> */}
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </div>
         )
     }
 
     const maxLength = (len) => (val) => !(val) || (val.length<=len);
     const minLength = (len) => (val) => (val) && (val.length>=len);
-    function  DishDetail ({dish, comments, addComment, isLoading, errMess}){
+    function  DishDetail ({dish, comments, postComment, isLoading, errMess}){
         // const dish = dish
         if(isLoading)
         return(
@@ -100,11 +100,11 @@ import { baseUrl } from '../shared/baseUrl';
                 <div className='row'>
                     <RenderDish dish={dish} />
                     <RenderComments comments={comments}
-                     addComment={addComment}
+                     postComment={postComment}
                      dishId={dish.id}
                      />
                     
-                    {/* <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} /> */}
+                    {/* <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} /> */}
                 </div>
             </div>
           
@@ -133,7 +133,7 @@ import { baseUrl } from '../shared/baseUrl';
 
         handleSubmit(values){
             this.toggleModal();
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+            this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
             console.log("Current State is: "+ JSON.stringify(values))
             alert("Current State is: "+ JSON.stringify(values))
         }
