@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { LoadingComponent } from './LoadingComponent';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function RenderLeader(props){
     if(props.isLoading){
@@ -17,22 +18,29 @@ function RenderLeader(props){
     }
     const leader = props.Leader.map((leader)=>{
          return(
-            <Media>
-                <Media left top href="#">
-                    {/* <img src={leader.image} /> */}
-                    <div className="col mr-5">
-                        <Media object src={baseUrl+ leader.image} alt={leader.name} />
-                    </div>
+            <Stagger in>
+                <Media>
+                    <Media left top href="#">
+                        {/* <img src={leader.image} /> */}
+                        <div className="col mr-5">
+                            <Fade in>
+                                <Media object src={baseUrl+ leader.image} alt={leader.name} />
+                            </Fade>
+                        </div>
 
+                    </Media>
+                    <Media body>
+                        <div className="col mb-5">
+                            <Fade in>
+                                <Media heading>{leader.name}</Media>
+                                <Media subHeading>{leader.designation}</Media>
+                                <Media>{leader.description}</Media>
+                            </Fade>
+                        </div> 
+                    </Media>
+                    
                 </Media>
-                <Media body>
-                     <div className="col mb-5">
-                         <Media heading>{leader.name}</Media>
-                         <Media subHeading>{leader.designation}</Media>
-                         <Media>{leader.description}</Media>
-                    </div> 
-                </Media>
-             </Media>
+             </Stagger>
           
     );
    });
